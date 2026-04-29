@@ -6,14 +6,14 @@ styles.py — Global CSS definitions for Veritas Analytics App.
 def get_global_css() -> str:
     return """
 <style>
-/* ═══════════════════════════════════════════════════
+/* 
    FONTS
-═══════════════════════════════════════════════════ */
+ */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Mono:wght@400;500&family=Playfair+Display:wght@700;800&display=swap');
 
-/* ═══════════════════════════════════════════════════
+/* 
    ROOT VARIABLES
-═══════════════════════════════════════════════════ */
+ */
 :root {
     --bg-main:      #F8F9FA;
     --bg-white:     #FFFFFF;
@@ -43,18 +43,55 @@ def get_global_css() -> str:
     --violet-light: #EDE9FE;
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    BASE & RESET
-═══════════════════════════════════════════════════ */
+ */
 html, body, [data-testid="stAppViewContainer"] {
     background-color: var(--bg-main) !important;
     font-family: 'DM Sans', sans-serif !important;
     color: var(--text-dark) !important;
 }
 
-[data-testid="stHeader"] {
-    background-color: var(--bg-main) !important;
-    border-bottom: 1px solid var(--border);
+/* ── Nuke Streamlit's native toolbar / header bar entirely ─────────────── */
+[data-testid="stHeader"],
+[data-testid="stHeader"] * {
+    display:    none       !important;
+    height:     0px        !important;
+    min-height: 0px        !important;
+    max-height: 0px        !important;
+    padding:    0          !important;
+    margin:     0          !important;
+    overflow:   hidden     !important;
+    visibility: hidden     !important;
+}
+
+/* Fill whatever pixel-gap the header skeleton still occupies ────────────
+   If Streamlit cannot fully collapse it, the gap will show as #C9E1C1
+   instead of an ugly white stripe.                                        */
+[data-testid="stApp"]::before,
+[data-testid="stAppViewContainer"]::before {
+    content:    '';
+    display:    block;
+    height:     0;
+    background: #C9E1C1;
+}
+
+/* Ensure the outermost app wrapper itself starts at pixel 0 */
+html, body,
+[data-testid="stApp"],
+[data-testid="stAppViewContainer"] {
+    margin-top:  0 !important;
+    padding-top: 0 !important;
+}
+
+/* Remove ALL top padding from every variant of the main block-container */
+.main .block-container,
+[data-testid="block-container"],
+[data-testid="stMainBlockContainer"],
+section[data-testid="stMain"] > div,
+section[data-testid="stMain"] > div.block-container {
+    padding-top: 0 !important;
+    margin-top:  0 !important;
 }
 
 [data-testid="stSidebar"] {
@@ -65,9 +102,9 @@ html, body, [data-testid="stAppViewContainer"] {
 /* Hide default hamburger & deploy */
 #MainMenu, footer, [data-testid="stToolbar"] { visibility: hidden; }
 
-/* ═══════════════════════════════════════════════════
+/* 
    TYPOGRAPHY
-═══════════════════════════════════════════════════ */
+ */
 h1, h2, h3, h4 {
     font-family: 'DM Sans', sans-serif !important;
     color: var(--text-dark) !important;
@@ -99,9 +136,9 @@ h1, h2, h3, h4 {
     color: var(--text-light);
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    NAVBAR (streamlit-option-menu override)
-═══════════════════════════════════════════════════ */
+ */
 .nav-container {
     background: var(--bg-white);
     border-radius: var(--radius-md);
@@ -111,9 +148,10 @@ h1, h2, h3, h4 {
     border: 1px solid var(--border);
 }
 
-/* ═══════════════════════════════════════════════════
-   CARD COMPONENT
-═══════════════════════════════════════════════════ */
+/* 
+   CARD COMPONENT  (generic .card  +  .vcard aliases)
+ */
+.card,
 .vcard {
     background: var(--bg-white);
     border-radius: var(--radius-md);
@@ -124,6 +162,7 @@ h1, h2, h3, h4 {
     height: 100%;
 }
 
+.card:hover,
 .vcard:hover {
     box-shadow: var(--shadow-md);
     transform: translateY(-2px);
@@ -137,9 +176,9 @@ h1, h2, h3, h4 {
     padding: 18px 20px;
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    METRIC CARDS (Views, Likes, etc.)
-═══════════════════════════════════════════════════ */
+ */
 .metric-card {
     background: var(--bg-white);
     border-radius: var(--radius-md);
@@ -209,9 +248,9 @@ h1, h2, h3, h4 {
     color: var(--sky);
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    ANIMATED PROGRESS BARS
-═══════════════════════════════════════════════════ */
+ */
 .metric-bar-wrap {
     background: var(--bg-white);
     border-radius: var(--radius-md);
@@ -266,9 +305,9 @@ h1, h2, h3, h4 {
     100% { width: var(--target-width); opacity: 1; }
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    DATASET TABLE
-═══════════════════════════════════════════════════ */
+ */
 .ds-table-header {
     display: grid;
     grid-template-columns: 2fr 3fr 1fr 1fr;
@@ -329,9 +368,9 @@ h1, h2, h3, h4 {
     color: var(--text-mid);
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    EPOCH BARS
-═══════════════════════════════════════════════════ */
+ */
 .epoch-bar-container {
     background: var(--bg-white);
     border-radius: var(--radius-md);
@@ -376,9 +415,9 @@ h1, h2, h3, h4 {
     text-align: right;
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    INFO STAT GRID  
-═══════════════════════════════════════════════════ */
+ */
 .stat-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -413,9 +452,9 @@ h1, h2, h3, h4 {
     display: block;
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    HERO SECTION
-═══════════════════════════════════════════════════ */
+ */
 .hero-section {
     background: linear-gradient(135deg, #FFFFFF 0%, #F0FDF7 50%, #EEF2FF 100%);
     border-radius: var(--radius-lg);
@@ -435,9 +474,9 @@ h1, h2, h3, h4 {
     border-radius: 50%;
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    TAG CHIPS
-═══════════════════════════════════════════════════ */
+ */
 .tag-chip {
     display: inline-block;
     background: var(--bg-soft);
@@ -457,9 +496,9 @@ h1, h2, h3, h4 {
     color: var(--emerald);
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    CONFIDENCE BADGE
-═══════════════════════════════════════════════════ */
+ */
 .confidence-badge {
     display: inline-flex;
     align-items: center;
@@ -489,9 +528,9 @@ h1, h2, h3, h4 {
     border: 1px solid #FCD34D;
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    STREAMLIT OVERRIDES
-═══════════════════════════════════════════════════ */
+ */
 [data-testid="stButton"] > button {
     background: var(--text-dark) !important;
     color: white !important;
@@ -586,9 +625,9 @@ hr { border-color: var(--border) !important; margin: 24px 0 !important; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-light); }
 
-/* ═══════════════════════════════════════════════════
+/* 
    PAGE-SPECIFIC: VIDEO LAB
-═══════════════════════════════════════════════════ */
+ */
 .thumbnail-card {
     background: var(--bg-white);
     border-radius: var(--radius-md);
@@ -655,9 +694,9 @@ hr { border-color: var(--border) !important; margin: 24px 0 !important; }
     font-family: 'DM Mono', monospace;
 }
 
-/* ═══════════════════════════════════════════════════
+/* 
    ANIMATIONS
-═══════════════════════════════════════════════════ */
+ */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -688,9 +727,9 @@ hr { border-color: var(--border) !important; margin: 24px 0 !important; }
 .fade-in-up:nth-child(4) { animation-delay: 0.20s; }
 
 
-/* ═══════════════════════════════════════════════════
+/* 
    TASK 9: MODEL METRICS MEGA CARD
-═══════════════════════════════════════════════════ */
+ */
 .metrics-mega-card { background:linear-gradient(135deg,#13161e 0%,#0d1119 100%); border:1px solid #1e2330; border-radius:20px; padding:2rem; margin:1.5rem 0; box-shadow:0 8px 32px rgba(0,212,255,0.08); }
 .metrics-card-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid #1e2330; }
 .metrics-icon { font-size:2.5rem; }
@@ -713,9 +752,9 @@ hr { border-color: var(--border) !important; margin: 24px 0 !important; }
 .config-label { font-family:'DM Mono',monospace; font-size:0.72rem; color:#5a6070; margin-right:0.3rem; }
 .config-tag { background:#1a1d27; border:1px solid #1e2330; border-radius:4px; padding:3px 10px; font-family:'DM Mono',monospace; font-size:0.7rem; color:#8090a0; }
 
-/* ═══════════════════════════════════════════════════
+/* 
    TASK 10: DATASET OVERVIEW CARD
-═══════════════════════════════════════════════════ */
+ */
 .dataset-overview-card { background:linear-gradient(135deg,#13161e,#0d1119); border:1px solid #1e2330; border-radius:20px; padding:2rem; margin:1.5rem 0; }
 .dataset-header { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1rem; border-bottom:1px solid #1e2330; }
 .dataset-header h2 { margin:0; font-family:'Syne',sans-serif; font-size:1.4rem; font-weight:800; background:linear-gradient(135deg,#00d4ff,#b388ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
@@ -734,11 +773,496 @@ hr { border-color: var(--border) !important; margin: 24px 0 !important; }
 .ds-benefits { display:grid; grid-template-columns:repeat(3,1fr); gap:0.6rem; padding-top:1rem; border-top:1px solid #1e2330; }
 .ds-benefit-item { background:#13161e; border:1px solid #1e2330; border-radius:8px; padding:0.6rem 0.9rem; font-size:0.78rem; color:#a0a8b8; font-family:'IBM Plex Sans',sans-serif; }
 
+/* 
+   LANDING PAGE
+ */
+
+/* Full-page wrapper — centers content vertically */
+.landing-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 24px 32px;
+    min-height: 30vh;
+}
+
+/* Centered page title  (required by spec) */
+.centered-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    color: var(--text-dark);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    text-align: center;
+    margin: 18px auto 0;
+    max-width: 780px;
+}
+
+.centered-title .accent {
+    background: linear-gradient(135deg, var(--emerald), var(--sky));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Badge row above the title */
+.landing-badge-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.landing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--emerald-light);
+    color: var(--emerald);
+    border: 1px solid #6EE7B7;
+    border-radius: 100px;
+    padding: 5px 14px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.04em;
+}
+
+.landing-badge.indigo {
+    background: var(--indigo-light);
+    color: var(--indigo);
+    border-color: #A5B4FC;
+}
+
+.landing-badge.amber {
+    background: var(--amber-light);
+    color: var(--amber);
+    border-color: #FCD34D;
+}
+
+/* Subtitle paragraph below the title */
+.landing-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    max-width: 660px;
+    margin: 20px auto 0;
+    text-align: center;
+}
+
+/* Wrapper for the CTA button under each nav card */
+.landing-cta [data-testid="stButton"] > button {
+    background: var(--btn-color, var(--emerald)) !important;
+    color: white !important;
+    border-radius: var(--radius-md) !important;
+    font-size: 0.9rem !important;
+    padding: 10px 22px !important;
+    width: 100% !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.01em !important;
+    transition: filter 0.2s ease, transform 0.2s ease !important;
+}
+
+.landing-cta [data-testid="stButton"] > button:hover {
+    filter: brightness(1.12) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: var(--shadow-md) !important;
+}
+
+/* 
+   LANDING NAVIGATION CARDS  (3 large cards)
+ */
+.landing-nav-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 28px 26px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    height: 100%;
+}
+
+.landing-nav-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}
+
+.landing-nav-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--card-accent, var(--emerald));
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.landing-card-icon {
+    font-size: 2.6rem;
+    margin-bottom: 14px;
+    display: block;
+}
+
+.landing-card-title {
+    font-size: 1.18rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+}
+
+.landing-card-file {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+    word-break: break-all;
+}
+
+.landing-card-desc {
+    font-size: 0.86rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+    margin-bottom: 18px;
+}
+
+.landing-card-stats {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.landing-card-stat {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 6px 12px;
+    text-align: center;
+    flex: 1;
+    min-width: 60px;
+}
+
+.landing-card-stat-num {
+    display: block;
+    font-family: 'DM Mono', monospace;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.2;
+}
+
+.landing-card-stat-lbl {
+    display: block;
+    font-size: 0.62rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+/* 
+   SUB-PAGE TOP-LEFT HEADER  (_render_sub_header)
+ */
+.app-title-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0 18px;
+}
+
+.app-icon {
+    font-size: 1.9rem;
+    line-height: 1;
+}
+
+.app-name {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.app-tagline {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-light);
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+}
+
+/* Back / Home button wrapper */
+.back-btn {
+    padding-top: 6px;
+}
+
+.back-btn [data-testid="stButton"] > button {
+    background: var(--bg-white) !important;
+    color: var(--text-mid) !important;
+    border: 1px solid var(--border) !important;
+    font-size: 0.82rem !important;
+    padding: 7px 16px !important;
+}
+
+.back-btn [data-testid="stButton"] > button:hover {
+    background: var(--bg-soft) !important;
+    border-color: var(--text-mid) !important;
+    transform: none !important;
+}
+
+/* 
+   DATASET DETAIL PAGE — SECTION CARDS
+ */
+
+/* Section divider banner */
+.section-divider {
+    background: linear-gradient(90deg, var(--bg-soft), transparent);
+    border-left: 3px solid var(--emerald);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 8px 18px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 16px;
+}
+
+/* Elevated section card */
+.section-card {
+    background: var(--bg-white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 20px 22px;
+    height: 100%;
+    transition: box-shadow 0.2s ease;
+}
+
+.section-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.section-card-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 14px;
+    display: block;
+}
+
+/* Dataset info key/value rows */
+.ds-info-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.ds-info-stat:last-child {
+    border-bottom: none;
+}
+
+.ds-info-key {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    font-weight: 500;
+}
+
+.ds-info-val {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    font-family: 'DM Mono', monospace;
+}
+
+/* 
+   CONFUSION MATRIX GRID
+ */
+.cm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cm-cell {
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    padding: 14px 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.cm-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.7rem;
+    font-weight: 800;
+    line-height: 1;
+    display: block;
+}
+
+.cm-lbl {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: block;
+}
+
+/* 
+   TRAINING CONFIGURATION ROWS
+ */
+.config-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.config-item:last-child {
+    border-bottom: none;
+}
+
+.config-key {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+    font-weight: 500;
+}
+
+.config-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    background: var(--bg-soft);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* 
+   GENERAL INFORMATION OVERVIEW CARD  (footer section)
+ */
+.general-info-card {
+    background: linear-gradient(135deg, #FFFFFF 0%, #F0FDF7 55%, #EEF2FF 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    padding: 32px 36px;
+    margin: 36px 0 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.general-info-card::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(99,102,241,0.06), transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.gi-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+}
+
+.gi-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+.gi-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.gi-subtitle {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--text-light);
+    margin-top: 4px;
+    letter-spacing: 0.05em;
+}
+
+.general-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 900px) {
+    .general-info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.gi-block {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    box-shadow: var(--shadow-sm);
+}
+
+.gi-block-title {
+    font-size: 0.74rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 8px;
+}
+
+.gi-block-body {
+    font-size: 0.83rem;
+    color: var(--text-mid);
+    line-height: 1.62;
+}
+
+.gi-insight {
+    background: var(--indigo-light);
+    border-left: 3px solid var(--indigo);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 12px 18px;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+}
+
 </style>
 """
 
 
-# ── Component Templates ──────────────────────────────────────────────────────
+#  Component Templates 
 
 def metric_card_html(icon: str, value: str, label: str,
                      color: str = "#10B981", delta: str = "") -> str:
@@ -872,5 +1396,56 @@ def result_banner_html(result: dict) -> str:
 <div class="result-banner {cls} fade-in-up">
     <div class="result-title">{icon} {label} — {pct}% confidence</div>
     <div class="result-reasoning">{reasoning}</div>
+</div>
+"""
+
+
+
+
+
+
+
+def landing_card_html(
+    icon: str,
+    title: str,
+    file_label: str,
+    desc: str,
+    accent_color: str = "#10B981",
+    stats: list = None,
+) -> str:
+    """
+    Renders one of the three large navigation cards on the Landing Page.
+
+    Parameters
+    ----------
+    icon         : emoji icon shown at top of card
+    title        : card heading
+    file_label   : small mono-font label beneath the title (csv filename / tag)
+    desc         : paragraph description
+    accent_color : top-border & stat-num colour
+    stats        : list of (value, label) tuples for the mini-stat strip
+    """
+    stats = stats or []
+
+    # Build stat strip
+    stat_items = "".join(
+        f'<div class="landing-card-stat">'
+        f'<span class="landing-card-stat-num" style="color:{accent_color}">{num}</span>'
+        f'<span class="landing-card-stat-lbl">{lbl}</span>'
+        f'</div>'
+        for num, lbl in stats
+    )
+    stats_html = (
+        f'<div class="landing-card-stats">{stat_items}</div>'
+        if stat_items else ""
+    )
+
+    return f"""
+<div class="landing-nav-card" style="--card-accent:{accent_color}">
+    <span class="landing-card-icon">{icon}</span>
+    <div class="landing-card-title">{title}</div>
+    <div class="landing-card-file">{file_label}</div>
+    <div class="landing-card-desc">{desc}</div>
+    {stats_html}
 </div>
 """
