@@ -1469,7 +1469,7 @@ if _current_page == "dataset_gold":
         '<div style="margin-top:60px;padding-top:20px;border-top:1px solid var(--border);'
         'text-align:center;color:var(--text-light);font-size:0.78rem">'
         '<span style="font-family:\'DM Mono\',monospace">'
-        'Made by <a href="https://scholar.google.com/citations?user=7JpdAw0AAAAJ&hl=en" style="color:var(--emerald);text-decoration:none">Abdullah Al Maruf</a> · Built on '
+        'Made by <a href="https://github.com/Rocky-Dewan/">Rocky Dewan</a> · Built on '
         '<a href="https://huggingface.co/rocky250/MHMisinfo" style="color:var(--emerald);text-decoration:none">MHMisinfo</a> · '
         '<a href="https://huggingface.co/distilroberta-base" style="color:var(--indigo);text-decoration:none">DistilRoBERTa</a>'
         '</span></div>',
@@ -1483,7 +1483,7 @@ if _current_page == "dataset_full":
         '<div style="margin-top:60px;padding-top:20px;border-top:1px solid var(--border);'
         'text-align:center;color:var(--text-light);font-size:0.78rem">'
         '<span style="font-family:\'DM Mono\',monospace">'
-        'Made by <a href="https://scholar.google.com/citations?user=7JpdAw0AAAAJ&hl=en" style="color:var(--emerald);text-decoration:none">Abdullah Al Maruf</a> · Built on '
+        'Made by <a href="https://github.com/Rocky-Dewan/">Rocky Dewan</a> · Built on '
         '<a href="https://huggingface.co/rocky250/MHMisinfo" style="color:var(--emerald);text-decoration:none">MHMisinfo</a> · '
         '<a href="https://huggingface.co/distilroberta-base" style="color:var(--indigo);text-decoration:none">DistilRoBERTa</a>'
         '</span></div>',
@@ -1497,7 +1497,7 @@ if _current_page == "video_lab":
         '<div style="margin-top:60px;padding-top:20px;border-top:1px solid var(--border);'
         'text-align:center;color:var(--text-light);font-size:0.78rem">'
         '<span style="font-family:\'DM Mono\',monospace">'
-        'Made by <a href="https://scholar.google.com/citations?user=7JpdAw0AAAAJ&hl=en" style="color:var(--emerald);text-decoration:none">Abdullah Al Maruf</a> · Built on '
+        'Made by <a href="https://github.com/Rocky-Dewan/">Rocky Dewan</a> · Built on '
         '<a href="https://huggingface.co/rocky250/MHMisinfo" style="color:var(--emerald);text-decoration:none">MHMisinfo</a> · '
         '<a href="https://huggingface.co/distilroberta-base" style="color:var(--indigo);text-decoration:none">DistilRoBERTa</a>'
         '</span></div>',
@@ -1549,7 +1549,7 @@ st.markdown(
     '<div style="margin-top:60px;padding-top:20px;border-top:1px solid var(--border);'
     'text-align:center;color:var(--text-light);font-size:0.78rem">'
     '<span style="font-family:\'DM Mono\',monospace">'
-    'Made by <a href="https://scholar.google.com/citations?user=7JpdAw0AAAAJ&hl=en" style="color:var(--emerald);text-decoration:none">Abdullah Al Maruf</a> · Built on '
+    'Made by <a href="https://github.com/Rocky-Dewan/">Rocky Dewan</a> · Built on '
     '<a href="https://huggingface.co/rocky250/MHMisinfo" style="color:var(--emerald);text-decoration:none">MHMisinfo</a> · '
     '<a href="https://huggingface.co/distilroberta-base" style="color:var(--indigo);text-decoration:none">DistilRoBERTa</a>'
     '</span></div>',
